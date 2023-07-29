@@ -1,0 +1,20 @@
+# Configuration file for the Config Server
+# Sets the port on which the Config Server will run
+server:
+  port: 8085
+
+# Spring application properties
+spring:
+  application:
+    # Name of the Config Server application
+    name: CONFIG-SERVER
+
+  cloud:
+    config:
+      server:
+        git:
+          # URI of the Git repository containing the configuration files
+          uri: https://github.com/AyushMangore/microservice-config
+
+          # Specifies whether the configuration repository should be cloned on server startup
+          clone-on-start: true

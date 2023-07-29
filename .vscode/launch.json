@@ -1,0 +1,70 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "ServerApplication",
+            "request": "launch",
+            "mainClass": "com.config_server.server.ServerApplication",
+            "projectName": "server"
+        },
+        {
+            "type": "java",
+            "name": "GatewayApplication",
+            "request": "launch",
+            "mainClass": "com.gateway.gateway.GatewayApplication",
+            "projectName": "com.gateway-gateway"
+        },
+        {
+            "type": "java",
+            "name": "UserServiceApplication",
+            "request": "launch",
+            "mainClass": "com.user.service.UserServiceApplication",
+            "projectName": ""
+        },
+        {
+            "type": "java",
+            "name": "RatingApplication",
+            "request": "launch",
+            "mainClass": "com.rating.rating.RatingApplication",
+            "projectName": "com.rating-rating"
+        },
+        {
+            "type": "java",
+            "name": "RegistryApplication",
+            "request": "launch",
+            "mainClass": "com.service_registry.registry.RegistryApplication",
+            "projectName": "com.service_registry-registry"
+        },
+        {
+            "type": "java",
+            "name": "GatewayApplication",
+            "request": "launch",
+            "mainClass": "com.gateway.gateway.GatewayApplication",
+            "projectName": "gateway"
+        },
+        {
+            "type": "java",
+            "name": "HotelServiceApplication",
+            "request": "launch",
+            "mainClass": "com.hotel.hotel.HotelServiceApplication",
+            "projectName": "com.user.service-UserService"
+        },
+        {
+            "type": "java",
+            "name": "RatingApplication",
+            "request": "launch",
+            "mainClass": "com.rating.rating.RatingApplication",
+            "projectName": "rating"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-UserServiceApplication<UserService>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.user.service.UserServiceApplication",
+            "projectName": "UserService",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

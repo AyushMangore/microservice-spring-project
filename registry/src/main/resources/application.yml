@@ -1,0 +1,18 @@
+# Configuration file for the Eureka Service Registry
+
+# Sets the port on which the Eureka Server will run
+server:
+    port: 8761
+
+# Eureka instance properties
+eureka:
+    instance:
+        # Hostname of the Eureka Server instance
+        hostname: localhost
+
+    client:
+        # Specifies whether the Eureka Server should register itself with other Eureka instances
+        register-with-eureka: false
+
+        # Specifies whether the Eureka Server should fetch the registry information from other Eureka instances
+        fetch-registry: false

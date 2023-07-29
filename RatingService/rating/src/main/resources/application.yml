@@ -1,0 +1,36 @@
+# Configuration file for the Rating Service application
+
+# Server configurations
+server:
+    port: 8083  # Specifies the port on which the Rating Service will run
+
+# Spring Data MongoDB configurations
+spring:
+    data:
+        mongodb:
+            uri: mongodb://localhost:27017  # MongoDB connection URI
+            database: microservices  # Specifies the MongoDB database name to be used by the application
+
+    application:
+        name: RATING-SERVICE  # Sets the application name to "RATING-SERVICE" for Spring Cloud
+
+    config:
+        import: optional:configserver:http://localhost:8085
+        # Configures the service to import optional configurations from the Config Server (if available)
+        # The Config Server URL is specified as "http://localhost:8085"
+
+# Eureka configurations (commented out and not used in this file)
+# eureka:
+#   instance:
+#     prefer-ip-address: true
+#   client:
+#     fetch-registry: true
+#     register-with-eureka: true
+#     service-url:
+#       defaultZone: http://localhost:8761/eureka
+
+# Okta configurations
+okta:
+    oauth2:
+        issuer: https://dev-45157491.okta.com/oauth2/default  # Okta authorization server URL
+        audience: api://default  # Audience (resource) identifier for the application in Okta

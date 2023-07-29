@@ -1,0 +1,111 @@
+# Configuration file for the User Service
+# Sets the port on which the User Service will run
+server:
+  port: 8081
+
+# Spring application properties
+spring:
+  datasource:
+    # JDBC URL for the MySQL database
+    url: jdbc:mysql://localhost:3306/microservices
+
+    # Username for the MySQL database
+    username: root
+
+    # Password for the MySQL database
+    password: Anamika@123
+
+    # JDBC driver class name for MySQL
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      # Hibernate behavior for the schema
+      ddl-auto: update
+
+    # Show SQL queries in logs
+    show-sql: true
+
+    properties:
+      hibernate:
+        # Hibernate dialect for MySQL 8
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
+  # Name of the User Service application
+  application:
+    name: USER-SERVICE
+
+  # Configuration for connecting to the Config Server
+  config:
+    import: optional:configserver:http://localhost:8085
+
+  # Security configuration for OAuth2
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          # Issuer URI for validating JWT tokens
+          issuer-uri: https://dev-45157491.okta.com/oauth2/default
+      client:
+        registration:
+          # OAuth2 client configuration for the User Service (my-internal-client)
+          my-internal-client:
+            provider: okta
+            authorization-grant-type: client_credentials
+            scope: internal
+            client-id: 0oaaiirc3nODjFMYd5d7
+            client-secret: L3ayvtGtaHW7ME1flG_rOEKskl1ZnKWYFA5P_hvfFWzOKHyI22zQ8NOfNAVmP31a
+          provider:
+            # Okta issuer URI for the OAuth2 provider
+            okta:
+              issuer-uri: https://dev-45157491.okta.com/oauth2/default
+
+# Management and Actuator configurations
+management:
+  health:
+    circuitbreakers:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        # Exposes only the "health" endpoint
+        include: health
+  endpoint:
+    health:
+      # Show detailed health information
+      show-details: always
+
+# Resilience configurations using Resilience4j
+resilience4j:
+  circuitbreaker:
+    instances:
+      ratingHotelBreaker:
+        registerHealthIndicator: true
+        eventConsumerBufferSize: 10
+        failureRateThreshold: 50
+        minimumNumberOfCalls: 5
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        waitDurationInOpenState: 6s
+        permittedNumberOfCallsInHalfOpenState: 3
+        slidingWindowSize: 10
+        slidingWindowType: COUNT_BASED
+  retry:
+    instances:
+      ratingHotelService:
+        max-attempts: 3
+        wait-duration: 5s
+  ratelimiter:
+    instances:
+      userRateLimiter:
+        limit-refresh-period: 4s
+        limit-for-period: 2
+        timeout-duration: 2s
+
+# Okta OAuth2 configuration
+okta:
+  oauth2:
+    # Okta issuer URI for OAuth2 authentication
+    issuer: https://dev-45157491.okta.com/oauth2/default
+
+    # Okta audience for the OAuth2 JWT tokens
+    audience: api://default

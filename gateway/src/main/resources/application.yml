@@ -1,0 +1,46 @@
+# Configuration for the API Gateway service
+
+server:
+  port: 8084  # Port on which the API Gateway service will run
+
+spring:
+  application:
+    name: API-GATEWAY  # Name of the API Gateway service for service discovery
+
+  cloud:
+    gateway:
+      routes:  # Definition of routes for forwarding requests to downstream services
+        - id: USER-SERVICE
+          uri: lb://USER-SERVICE  # Load-balanced URI for the User Service
+          predicates:
+            - Path=/users/**  # Predicate to match requests with the path starting with /users/
+
+        - id: HOTEL-SERVICE
+          uri: lb://HOTEL-SERVICE  # Load-balanced URI for the Hotel Service
+          predicates:
+            - Path=/hotels/**  # Predicate to match requests with the path starting with /hotels/
+            # Multiple paths can be defined using commas, e.g., Path=/hotels/**,/staffs/**
+
+        - id: RATING-SERVICE
+          uri: lb://RATING-SERVICE  # Load-balanced URI for the Rating Service
+          predicates:
+            - Path=/ratings/**  # Predicate to match requests with the path starting with /ratings/
+
+eureka:
+  instance:
+    prefer-ip-address: true  # Prefer using IP addresses instead of hostnames for service registration
+  client:
+    fetch-registry: true  # Fetch service registry from Eureka server for service discovery
+    register-with-eureka: true  # Register the API Gateway service with the Eureka server
+    service-url:
+      defaultZone: http://localhost:8761/eureka  # URL of the Eureka server
+
+# Okta configuration for API Gateway
+
+okta:
+  oauth2:
+    issuer: https://dev-45157491.okta.com/oauth2/default  # Issuer URL for Okta OAuth2
+    audience: api://default  # Audience for Okta OAuth2
+    client-id: 0oaaiirc3nODjFMYd5d7  # Client ID for the API Gateway to authenticate with Okta
+    client-secret: L3ayvtGtaHW7ME1flG_rOEKskl1ZnKWYFA5P_hvfFWzOKHyI22zQ8NOfNAVmP31a  # Client Secret for API Gateway
+    scopes: openid, profile, email, offline_access  # Scopes requested from Okta for user authentication
